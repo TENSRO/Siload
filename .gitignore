@@ -1,0 +1,4 @@
+server/siload.db
+__pycache__/
+.DS_Store
+firmware/**/secrets.h

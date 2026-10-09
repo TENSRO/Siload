@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siload Bench</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --text: #1b1f24; --muted: #6a737d; --border: #e1e4e8;
+    --accent: #2563eb; --danger: #c62828;
+    --c1: #2563eb; --c2: #d97706; --c3: #059669; --c4: #9333ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1216; --panel: #171b21; --text: #e6e8eb; --muted: #8b949e; --border: #2a3038;
+      --accent: #60a5fa; --danger: #ef5350;
+      --c1: #60a5fa; --c2: #fbbf24; --c3: #34d399; --c4: #c084fc;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.4 system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--panel); }
+  header h1 { font-size: 18px; margin: 0 12px 0 0; }
+  .status { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+  .dot.live { background: #22c55e; }
+  .dot.stale { background: #f59e0b; }
+  main { padding: 16px; max-width: 1200px; margin: 0 auto; display: grid; gap: 16px; }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .card { border-left: 4px solid var(--border); }
+  .card h2 { font-size: 13px; margin: 0 0 6px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .big { font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .sub { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 12px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  button, select { font: inherit; color: var(--text); background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; }
+  button { cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button.danger { color: var(--danger); }
+  .seg button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  canvas { width: 100%; height: 360px; display: block; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+  .legend span::before { content: ""; display: inline-block; width: 10px; height: 3px; margin-right: 6px; vertical-align: middle; background: var(--c); }
+  .spacer { flex: 1; }
+  .empty { color: var(--muted); padding: 40px; text-align: center; }
+  .card.temp { border-left-color: #dc2626; }
+  .notice { color: var(--muted); padding: 24px; text-align: center; }
+  code { background: var(--bg); padding: 1px 4px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Siload Bench</h1>
+  <label>Device <select id="device"></select></label>
+  <div class="seg row" id="window">
+    <button data-sec="10">10 s</button>
+    <button data-sec="30" class="on">30 s</button>
+    <button data-sec="60">60 s</button>
+    <button data-sec="600">10 min</button>
+    <button data-sec="3600">1 h</button>
+  </div>
+  <span class="spacer"></span>
+  <span class="status"><span class="dot" id="dot"></span><span id="statusText">waiting…</span></span>
+  <button id="pause">Pause</button>
+  <a id="csv" href="/api/export.csv"><button>CSV</button></a>
+  <button id="clear" class="danger">Clear</button>
+</header>
+
+<main>
+  <div class="cards" id="cards"></div>
+
+  <div class="panel">
+    <div class="legend" id="legend"></div>
+    <canvas id="chart"></canvas>
+  </div>
+
+  <div class="panel" id="tempPanel">
+    <div class="legend" id="tempLegend"></div>
+    <canvas id="tempChart" style="height:200px"></canvas>
+    <div class="notice" id="tempNotice" hidden></div>
+  </div>
+</main>
+
+<script>
+const COLORS = ["--c1", "--c2", "--c3", "--c4"];
+const NOISE_SAMPLES = 10;   // samples used for the average / noise figures on the cards
+const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const $ = id => document.getElementById(id);
+
+const state = {
+  device: null,
+  seconds: 30,
+  paused: false,
+  readings: [],       // {id, ts, raw:[], temp_c:[]}
+  lastId: 0,
+};
+
+function channelCount() {
+  return state.readings.reduce((n, r) => Math.max(n, r.raw.length), 0);
+}
+function tempCount() {
+  return state.readings.reduce((n, r) => Math.max(n, r.temp_c ? r.temp_c.length : 0), 0);
+}
+function recent(ch, n) {
+  const vals = [];
+  for (let i = state.readings.length - 1; i >= 0 && vals.length < n; i--) {
+    const v = state.readings[i].raw[ch];
+    if (v != null) vals.push(v);
+  }
+  return vals;
+}
+const mean = a => a.reduce((s, v) => s + v, 0) / a.length;
+const stdev = a => { const m = mean(a); return Math.sqrt(a.reduce((s, v) => s + (v - m) ** 2, 0) / a.length); };
+
+// ---------- data loading ----------
+async function loadDevices() {
+  const devices = await fetch("/api/devices").then(r => r.json());
+  const sel = $("device");
+  const current = state.device;
+  sel.innerHTML = devices.map(d => `<option value="${d.device_id}">${d.device_id} (${d.n})</option>`).join("");
+  if (!devices.length) return;
+  const keep = devices.find(d => d.device_id === current);
+  sel.value = keep ? current : devices[0].device_id;
+  if (sel.value !== current) switchDevice(sel.value);
+}
+
+function switchDevice(id) {
+  state.device = id;
+  state.readings = [];
+  state.lastId = 0;
+  $("csv").href = `/api/export.csv?device_id=${encodeURIComponent(id)}`;
+  poll();
+}
+
+async function poll() {
+  if (!state.device || state.paused) return;
+  const q = new URLSearchParams({ device_id: state.device, minutes: state.seconds / 60, after_id: state.lastId });
+  const rows = await fetch(`/api/readings?${q}`).then(r => r.json());
+  if (rows.length) {
+    state.readings.push(...rows);
+    state.lastId = rows[rows.length - 1].id;
+  }
+  const cutoff = Date.now() / 1000 - state.seconds;
+  while (state.readings.length && state.readings[0].ts < cutoff) state.readings.shift();
+  render();
+}
+
+// ---------- rendering ----------
+function fmt(v, digits = 0) {
+  return v == null || isNaN(v) ? "–" : v.toLocaleString(undefined, { minimumFractionDigits: digits, maximumFractionDigits: digits });
+}
+
+function render() {
+  const n = channelCount();
+  const last = state.readings[state.readings.length - 1];
+
+  const age = last ? Date.now() / 1000 - last.ts : Infinity;
+  $("dot").className = "dot " + (age < 10 ? "live" : age < 60 ? "stale" : "");
+  $("statusText").textContent = last
+    ? `last reading ${age < 1 ? "just now" : Math.round(age) + " s ago"} · ${state.readings.length} in window`
+    : "no readings in window";
+
+  if (!n) {
+    $("cards").innerHTML = `<div class="panel empty" style="grid-column:1/-1">No readings in the last ${fmtWindow()}.<br>
+      Is the board plugged in and <code>python3 server/serial_bridge.py</code> running?</div>`;
+    $("legend").innerHTML = "";
+    $("tempPanel").hidden = true;
+    drawChart($("chart"), [], 0);
+    return;
+  }
+  $("tempPanel").hidden = false;
+  const nt = tempCount();
+  const NO_SENSOR = `No temperature sensor detected. Check the DS18B20: DATA → D7, VDD → 3V3, GND → GND,
+    and the 4.7 kΩ resistor between DATA and 3V3.`;
+
+  let html = "";
+  for (let ch = 0; ch < n; ch++) {
+    const vals = recent(ch, NOISE_SAMPLES);
+    const raw = last.raw[ch];
+    html += `<div class="panel card" style="border-left-color:var(${COLORS[ch]})">
+      <h2>Leg ${ch + 1}</h2>
+      <div class="big">${fmt(raw)}</div>
+      <div class="sub">avg ${fmt(vals.length ? mean(vals) : null)} · noise σ ${fmt(vals.length > 1 ? stdev(vals) : null, 1)} counts</div>
+    </div>`;
+  }
+
+  // temperature cards: one per DS18B20, or a hint when none is detected
+  for (let i = 0; i < nt; i++) {
+    const vals = state.readings.map(r => r.temp_c ? r.temp_c[i] : null).filter(v => v != null);
+    const temp = last.temp_c ? last.temp_c[i] : null;
+    html += `<div class="panel card temp">
+      <h2>Temperature${nt > 1 ? " " + (i + 1) : ""}</h2>
+      <div class="big">${temp != null ? fmt(temp, 2) + " °C" : "sensor lost"}</div>
+      <div class="sub">${vals.length ? `min ${fmt(Math.min(...vals), 2)} · max ${fmt(Math.max(...vals), 2)} °C in last ${fmtWindow()}` : "no valid readings in window"}</div>
+    </div>`;
+  }
+  if (!nt) {
+    html += `<div class="panel card temp">
+      <h2>Temperature</h2>
+      <div class="big">–</div>
+      <div class="sub">no sensor detected</div>
+    </div>`;
+  }
+  $("cards").innerHTML = html;
+  $("legend").innerHTML = Array.from({ length: n }, (_, i) => `<span style="--c:var(${COLORS[i]})">Leg ${i + 1}</span>`).join("")
+    + `<span>raw counts · last ${fmtWindow()}</span>`;
+  drawChart($("chart"), Array.from({ length: n }, (_, ch) => state.readings.map(r => r.raw[ch])), 0, 10);
+
+  // temperature chart
+  $("tempChart").hidden = !nt;
+  $("tempNotice").hidden = !!nt;
+  $("tempNotice").textContent = NO_SENSOR;
+  $("tempLegend").innerHTML = nt
+    ? Array.from({ length: nt }, (_, i) => `<span style="--c:${nt > 1 ? `var(${COLORS[i]})` : "#dc2626"}">Temperature${nt > 1 ? " " + (i + 1) : ""}</span>`).join("") + `<span>°C · last ${fmtWindow()}</span>`
+    : `<span style="--c:#dc2626">Temperature</span>`;
+  if (nt) {
+    drawChart($("tempChart"), Array.from({ length: nt }, (_, i) => state.readings.map(r => r.temp_c ? r.temp_c[i] : null)), 2, 0.5,
+              nt > 1 ? null : ["#dc2626"]);
+  }
+}
+
+function fmtWindow() {
+  return state.seconds < 120 ? `${state.seconds} s` : state.seconds < 7200 ? `${state.seconds / 60} min` : `${state.seconds / 3600} h`;
+}
+
+// series: one array of values (or null) per line, aligned with state.readings.
+// digits: decimals on the y-axis labels. minRange: smallest y-span shown, so noise isn't blown up.
+// colors: optional list of CSS colors per line (defaults to the leg colors).
+function drawChart(canvas, series, digits, minRange, colors) {
+  const n = series.length;
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, W, H);
+  if (!n || !state.readings.length) return;
+
+  // fixed window ending at "now", so the line scrolls like a live recorder
+  const x1 = Date.now() / 1000, x0 = x1 - state.seconds;
+  const xs = state.readings.map(r => r.ts);
+
+  let lo = Infinity, hi = -Infinity;
+  series.forEach(s => s.forEach(v => { if (v != null) { lo = Math.min(lo, v); hi = Math.max(hi, v); } }));
+  if (!isFinite(lo)) return;
+  if (hi - lo < minRange) { const m = (hi + lo) / 2; hi = m + minRange / 2; lo = m - minRange / 2; }
+  const pad = (hi - lo) * 0.08; lo -= pad; hi += pad;
+
+  const L = 80, R = 12, T = 10, B = 26;
+  const px = t => L + (t - x0) / (x1 - x0) * (W - L - R);
+  const py = v => T + (hi - v) / (hi - lo) * (H - T - B);
+
+  // y grid
+  ctx.font = "11px system-ui, sans-serif";
+  ctx.strokeStyle = css("--border"); ctx.fillStyle = css("--muted"); ctx.lineWidth = 1;
+  const step = niceStep((hi - lo) / 6);
+  ctx.textAlign = "right"; ctx.textBaseline = "middle";
+  for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) {
+    const y = Math.round(py(v)) + 0.5;
+    ctx.beginPath(); ctx.moveTo(L, y); ctx.lineTo(W - R, y); ctx.stroke();
+    ctx.fillText(fmt(v, step < 1 ? Math.max(digits, Math.ceil(-Math.log10(step))) : 0), L - 6, y);
+  }
+
+  // x labels: seconds ago for short windows, clock time for long ones
+  ctx.textAlign = "center"; ctx.textBaseline = "top";
+  const minGap = 48;  // px between labels
+  const xStep = state.seconds <= 60
+    ? [1, 2, 5, 10, 15, 30, 60].find(s => (W - L - R) * s / state.seconds >= minGap) || 60
+    : null;
+  if (xStep) {
+    for (let s = state.seconds; s >= 0; s -= xStep) {
+      const x = Math.round(px(x1 - s)) + 0.5;
+      ctx.beginPath(); ctx.moveTo(x, T); ctx.lineTo(x, H - B); ctx.stroke();
+      ctx.fillText(s === 0 ? "now" : `-${s} s`, x, H - B + 6);
+    }
+  } else {
+    for (let i = 0; i <= 5; i++) {
+      const t = x0 + (x1 - x0) * i / 5;
+      ctx.fillText(new Date(t * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }), px(t), H - B + 6);
+    }
+  }
+
+  // lines + sample dots (dots only when they're far enough apart to see)
+  const showDots = state.seconds <= 60;
+  series.forEach((s, i) => {
+    ctx.strokeStyle = ctx.fillStyle = colors ? colors[i] : css(COLORS[i]);
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    let pen = false;
+    s.forEach((v, j) => {
+      if (v == null) { pen = false; return; }
+      const x = px(xs[j]), y = py(v);
+      pen ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+      pen = true;
+    });
+    ctx.stroke();
+    if (showDots) s.forEach((v, j) => {
+      if (v == null) return;
+      ctx.beginPath(); ctx.arc(px(xs[j]), py(v), 2.5, 0, 2 * Math.PI); ctx.fill();
+    });
+  });
+}
+
+function niceStep(raw) {
+  const p = Math.pow(10, Math.floor(Math.log10(raw)));
+  const f = raw / p;
+  return (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * p;
+}
+
+// ---------- controls ----------
+$("device").onchange = e => switchDevice(e.target.value);
+
+$("window").onclick = e => {
+  const s = e.target.dataset.sec; if (!s) return;
+  document.querySelectorAll("#window button").forEach(b => b.classList.toggle("on", b === e.target));
+  state.seconds = +s; state.readings = []; state.lastId = 0; poll();
+};
+$("pause").onclick = () => {
+  state.paused = !state.paused;
+  $("pause").textContent = state.paused ? "Resume" : "Pause";
+  if (!state.paused) poll();
+};
+$("clear").onclick = async () => {
+  if (!state.device || !confirm(`Delete all readings for "${state.device}"?`)) return;
+  await fetch(`/api/clear?device_id=${encodeURIComponent(state.device)}`, { method: "POST" });
+  state.readings = []; state.lastId = 0; render(); loadDevices();
+};
+window.onresize = () => render();
+
+// ---------- start ----------
+loadDevices().then(() => { if (!state.device) render(); });
+setInterval(poll, 1000);
+setInterval(loadDevices, 5000);
+</script>
+</body>
+</html>
