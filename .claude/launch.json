@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "siload-server", "runtimeExecutable": "python3", "runtimeArgs": ["server/server.py"], "port": 8000 }
+  ]
+}
