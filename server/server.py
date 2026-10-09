@@ -83,6 +83,37 @@ def row_to_dict(row):
     }
 
 
+def bucket_average(readings, bucket):
+    """Average readings per `bucket` seconds, per channel, ignoring nulls.
+
+    Each output row has the mean `ts` of its bucket and `n`, the number of readings averaged.
+    """
+    def mean_columns(lists):
+        width = max((len(l) for l in lists), default=0)
+        out = []
+        for i in range(width):
+            vals = [l[i] for l in lists if i < len(l) and l[i] is not None]
+            out.append(sum(vals) / len(vals) if vals else None)
+        return out
+
+    groups = {}
+    for r in readings:
+        groups.setdefault(int(r["ts"] // bucket), []).append(r)
+
+    result = []
+    for _, rows in sorted(groups.items()):
+        temps = [r["temp_c"] for r in rows if r["temp_c"]]
+        result.append({
+            "id": rows[-1]["id"],
+            "ts": sum(r["ts"] for r in rows) / len(rows),
+            "device_id": rows[-1]["device_id"],
+            "raw": mean_columns([r["raw"] for r in rows]),
+            "temp_c": mean_columns(temps) if temps else None,
+            "n": len(rows),
+        })
+    return result
+
+
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, fmt, *args):
         # Keep the console quiet for the dashboard's polling requests.
@@ -119,19 +150,27 @@ class Handler(BaseHTTPRequestHandler):
         elif url.path == "/api/readings":
             # ?device_id=...&after_id=123  -> only new rows (for live polling)
             # ?device_id=...&minutes=10    -> history window
+            # ?device_id=...&minutes=1440&bucket=120 -> averages per 120 s bucket (long windows)
             device_id = qs.get("device_id", [None])[0]
             after_id = int(qs.get("after_id", ["0"])[0])
             minutes = float(qs.get("minutes", ["10"])[0])
             limit = min(int(qs.get("limit", ["5000"])[0]), 50000)
+            bucket = float(qs.get("bucket", ["0"])[0])
 
             sql = "SELECT * FROM readings WHERE id > ? AND ts >= ?"
             args = [after_id, time.time() - minutes * 60]
             if device_id:
                 sql += " AND device_id = ?"
                 args.append(device_id)
+
+            if bucket > 0:
+                with db() as conn:
+                    rows = conn.execute(sql + " ORDER BY id", args).fetchall()
+                self.send_json(bucket_average([row_to_dict(r) for r in rows], bucket))
+                return
+
             sql += " ORDER BY id DESC LIMIT ?"
             args.append(limit)
-
             with db() as conn:
                 rows = conn.execute(sql, args).fetchall()
             self.send_json([row_to_dict(r) for r in reversed(rows)])
