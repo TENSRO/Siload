@@ -2,7 +2,11 @@
 // Board: Seeed Studio XIAO ESP32S3 with a Wio-SX1262 for XIAO on the header pins (same pins as the Siload).
 // Ethernet (W5500) will be added once its pins are known; it shares the SPI bus D8/D9/D10.
 //
-// Radio settings must match the sender (firmware/lora_test): 868.0 MHz, 125 kHz, SF9, CR 4/7, sync word 0x12.
+// A Siload reading arrives as the same JSON the server expects ({"device_id":…,"raw":[…],…}); the hub adds
+// "rssi" and "snr" and prints it, so server/serial_bridge.py on the hub's USB port feeds it to the dashboard.
+// Other packets (e.g. from firmware/lora_test) are printed as [lora] lines.
+//
+// Radio settings must match the senders: 868.0 MHz, 125 kHz, SF7, CR 4/5, sync word 0x12.
 #include <RadioLib.h>
 #include <SPI.h>
 
@@ -27,10 +31,10 @@ void setup() {
   Serial.println("\n=== Siload farm hub ===");
 
   SPI.begin(D8, D9, D10, LORA_NSS);
-  int state = radio.begin(FREQ_MHZ, 125.0, 9, 7, RADIOLIB_SX126X_SYNC_WORD_PRIVATE, 2, 8, 1.8);
+  int state = radio.begin(FREQ_MHZ, 125.0, 7, 5, RADIOLIB_SX126X_SYNC_WORD_PRIVATE, 2, 8, 1.8);
   if (state != RADIOLIB_ERR_NONE) {
     Serial.printf("LoRa begin() failed (%d), retrying without TCXO\n", state);
-    state = radio.begin(FREQ_MHZ, 125.0, 9, 7, RADIOLIB_SX126X_SYNC_WORD_PRIVATE, 2, 8, 0);
+    state = radio.begin(FREQ_MHZ, 125.0, 7, 5, RADIOLIB_SX126X_SYNC_WORD_PRIVATE, 2, 8, 0);
   }
   if (state != RADIOLIB_ERR_NONE) {
     Serial.printf("LoRa not found (%d): check NSS D4, RST D2, BUSY D3 and SPI D8/D9/D10\n", state);
@@ -51,10 +55,15 @@ void loop() {
   String msg;
   int state = radio.readData(msg);
   if (state == RADIOLIB_ERR_NONE) {
-    msg.replace("\\", "\\\\");
-    msg.replace("\"", "\\\"");
-    Serial.printf("{\"lora\":\"%s\",\"rssi\":%.1f,\"snr\":%.1f,\"n\":%lu}\n",
-                  msg.c_str(), radio.getRSSI(), radio.getSNR(), (unsigned long)++received);
+    received++;
+    msg.trim();
+    if (msg.startsWith("{\"device_id\"") && msg.endsWith("}")) {
+      msg.remove(msg.length() - 1);
+      Serial.printf("%s,\"rssi\":%.1f,\"snr\":%.1f}\n", msg.c_str(), radio.getRSSI(), radio.getSNR());
+    } else {
+      Serial.printf("[lora] \"%s\" rssi %.1f snr %.1f (#%lu)\n",
+                    msg.c_str(), radio.getRSSI(), radio.getSNR(), (unsigned long)received);
+    }
   } else if (state == RADIOLIB_ERR_CRC_MISMATCH) {
     Serial.println("[lora] packet with CRC error");
   } else {

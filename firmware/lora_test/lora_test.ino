@@ -50,11 +50,11 @@ void setup() {
   SPI.begin(D8, D9, D10, LORA_NSS);
   // begin() reads the chip's version string over SPI, so success proves NSS/SCK/MISO/MOSI.
   float tcxo = 1.8;
-  int state = radio.begin(FREQ_MHZ, 125.0, 9, 7, RADIOLIB_SX126X_SYNC_WORD_PRIVATE, TX_DBM, 8, tcxo);
+  int state = radio.begin(FREQ_MHZ, 125.0, 7, 5, RADIOLIB_SX126X_SYNC_WORD_PRIVATE, TX_DBM, 8, tcxo);
   if (state != RADIOLIB_ERR_NONE) {
     Serial.printf("       begin() with 1.8 V TCXO failed (%d), retrying without TCXO\n", state);
     tcxo = 0;
-    state = radio.begin(FREQ_MHZ, 125.0, 9, 7, RADIOLIB_SX126X_SYNC_WORD_PRIVATE, TX_DBM, 8, tcxo);
+    state = radio.begin(FREQ_MHZ, 125.0, 7, 5, RADIOLIB_SX126X_SYNC_WORD_PRIVATE, TX_DBM, 8, tcxo);
   }
   char buf[96];
   snprintf(buf, sizeof(buf), "radio.begin() = %d%s", state,
@@ -72,7 +72,7 @@ void setup() {
   // transmit() waits for the TX-done interrupt on DIO1, so a timeout means DIO1 isn't connected.
   uint32_t t0 = millis();
   state = radio.transmit("siload lora test");
-  snprintf(buf, sizeof(buf), "transmit() = %d, %lu ms (expected ~200 ms at SF9)", state,
+  snprintf(buf, sizeof(buf), "transmit() = %d, %lu ms (expected ~50 ms at SF7)", state,
            (unsigned long)(millis() - t0));
   result("TX + DIO1 (D1) interrupt", state == RADIOLIB_ERR_NONE, buf);
 
