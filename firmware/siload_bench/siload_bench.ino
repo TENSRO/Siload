@@ -1,9 +1,10 @@
-// Siload bench firmware: reads up to 4 HX711 load cell amplifiers and sends the raw
-// values to the bench server (server/server.py), either:
-//   - over USB: every reading is printed as one JSON line; run server/serial_bridge.py, or
+// Siload bench firmware: reads an HX711 load cell amplifier and sends the raw values
+// to the bench server (server/server.py):
+//   - over USB: every reading is printed as one JSON line; run server/serial_bridge.py,
+//   - over LoRa: every LORA_INTERVAL_MS the latest reading goes to the farm hub (firmware/farm_hub), and
 //   - over Wi-Fi: set WIFI_SSID in secrets.h and the board POSTs directly.
 //
-// Libraries: "HX711 Arduino Library" (Bogdan Necula), "OneWire", "DallasTemperature".
+// Libraries: "HX711 Arduino Library" (Bogdan Necula), "OneWire", "DallasTemperature", "RadioLib".
 // Board:   Seeed Studio XIAO ESP32S3 with a Wio-SX1262 for XIAO on the header pins
 //          (firmware/flash.sh detects the chip; USB CDC On Boot enabled).
 //          The LoRa module uses D1-D5 and the SPI bus D8/D9/D10, so those are not free.
@@ -16,6 +17,8 @@
 
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <RadioLib.h>
+#include <SPI.h>
 #include "HX711.h"
 #include <OneWire.h>
 #include <DallasTemperature.h>
@@ -34,7 +37,20 @@ const int TEMP_PIN = D7;                        // DS18B20 1-Wire bus
 
 const int SAMPLES_PER_READING = 10;            // HX711 averages per posted reading
 const unsigned long SEND_INTERVAL_MS = 1000;
+
+// LoRa: Wio-SX1262 for XIAO. Radio settings must match firmware/farm_hub.
+// EU868 allows 1% airtime: a ~60-byte packet at SF7 takes ~100 ms, so at most one per 10 s.
+const unsigned long LORA_INTERVAL_MS = 15000;
+const int LORA_TX_DBM = 14;                     // EU868 maximum
 // -------------------
+
+#define LORA_NSS   D4
+#define LORA_DIO1  D1
+#define LORA_RST   D2
+#define LORA_BUSY  D3
+#define LORA_RF_SW D5
+SX1262 radio = new Module(LORA_NSS, LORA_DIO1, LORA_RST, LORA_BUSY);
+bool loraOk = false;
 
 HX711 scales[4];
 OneWire oneWire(TEMP_PIN);
@@ -60,7 +76,20 @@ void setup() {
     scales[i].set_gain(128);
   }
   findTempSensors();
+  setupLora();
   if (USE_WIFI) connectWifi();
+}
+
+void setupLora() {
+  SPI.begin(D8, D9, D10, LORA_NSS);
+  int state = radio.begin(868.0, 125.0, 7, 5, RADIOLIB_SX126X_SYNC_WORD_PRIVATE, LORA_TX_DBM, 8, 1.8);
+  if (state == RADIOLIB_ERR_NONE) {
+    radio.setRfSwitchPins(LORA_RF_SW, RADIOLIB_NC);
+    radio.setDio2AsRfSwitch(true);
+    loraOk = true;
+  }
+  if (loraOk) Serial.println("LoRa: OK, 868.0 MHz SF7");
+  else Serial.printf("LoRa: not found, error %d\n", state);
 }
 
 // Scans the 1-Wire bus. Sensors are reported in bus order (by ROM address); the addresses
@@ -130,6 +159,13 @@ void loop() {
   json += "}";
 
   Serial.println(json);
+
+  static unsigned long lastLora = 0;
+  if (loraOk && (lastLora == 0 || millis() - lastLora >= LORA_INTERVAL_MS)) {
+    lastLora = millis();
+    int state = radio.transmit(json);
+    if (state != RADIOLIB_ERR_NONE) Serial.printf("LoRa send failed: %d\n", state);
+  }
 
   if (!USE_WIFI) return;
   connectWifi();
