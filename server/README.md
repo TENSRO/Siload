@@ -51,9 +51,27 @@ Close `serial_bridge.py` first, since only one program can use the USB port at a
 
 ## Firmware (Seeed Studio XIAO ESP32S3)
 
-`firmware/siload_bench/siload_bench.ino` reads up to 4 HX711 boards and prints each reading as a JSON line over USB.
+`firmware/siload_bench/siload_bench.ino` reads an HX711 and prints each reading as a JSON line over USB.
 
-Wiring (leg 1): HX711 DT → D9, SCK → D10, VCC → 3V3, GND → GND. Legs 2–4 (DT/SCK): D0/D1, D2/D3, D4/D5.
+The board carries a Wio-SX1262 for XIAO LoRa module on the header pins, which uses D1–D5 and the SPI bus D8/D9/D10.
+Only D0, D6 and D7 are left, so there is room for one HX711:
+
+| XIAO pin | Used for |
+|---|---|
+| D0 | HX711 DT |
+| D1 | LoRa DIO1 |
+| D2 | LoRa RESET |
+| D3 | LoRa BUSY |
+| D4 | LoRa NSS |
+| D5 | LoRa RF switch |
+| D6 | HX711 SCK |
+| D7 | DS18B20 DATA (4.7 kΩ pull-up to 3V3) |
+| D8 / D9 / D10 | LoRa SPI SCK / MISO / MOSI |
+| 3V3 / GND | HX711 VCC, DS18B20 VDD, LoRa module |
+
+`firmware/lora_test/lora_test.ino` checks the LoRa wiring step by step and prints the result over USB.
+It then sends `siload test #N` every 5 s. `firmware/farm_hub/farm_hub.ino` runs on the farm hub (same XIAO + LoRa pins)
+and prints every packet it receives as a JSON line with RSSI and SNR. Ethernet (W5500) is not in the hub firmware yet.
 
 Temperature: DS18B20 DATA → D7, VDD → 3V3, GND → GND, with a 4.7 kΩ resistor between DATA and 3V3.
 More DS18B20s can share D7; they are reported in bus order and their addresses are printed at boot.
@@ -74,6 +92,18 @@ Flash, then run the server and the USB bridge (each in its own terminal):
 python3 server/server.py
 python3 server/serial_bridge.py
 ```
+
+On Windows, install arduino-cli with `winget install ArduinoSA.CLI`, run the same `arduino-cli` setup commands
+(in a new terminal), then use `python` instead of `python3` and the Windows flash script:
+
+```bat
+firmware\flash.cmd
+python server\server.py
+python server\serial_bridge.py
+```
+
+Both pick the first USB COM port automatically (Bluetooth COM ports are skipped); pass the port to choose another,
+e.g. `firmware\flash.cmd COM5` and `python server\serial_bridge.py --port COM5`.
 
 For Wi-Fi instead of USB, set `WIFI_SSID`, `WIFI_PASSWORD` and `SERVER_URL` in `firmware/siload_bench/secrets.h`
 (copied from `secrets.h.example`, git-ignored) and reflash.

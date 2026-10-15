@@ -4,8 +4,10 @@
 //   - over Wi-Fi: set WIFI_SSID in secrets.h and the board POSTs directly.
 //
 // Libraries: "HX711 Arduino Library" (Bogdan Necula), "OneWire", "DallasTemperature".
-// Board:   Seeed Studio XIAO ESP32C3 or ESP32S3 (firmware/flash.sh detects which; USB CDC On Boot enabled).
-//          Wiring for leg 1: HX711 DT -> D9, SCK -> D10, VCC -> 3V3, GND -> GND.
+// Board:   Seeed Studio XIAO ESP32S3 with a Wio-SX1262 for XIAO on the header pins
+//          (firmware/flash.sh detects the chip; USB CDC On Boot enabled).
+//          The LoRa module uses D1-D5 and the SPI bus D8/D9/D10, so those are not free.
+//          Wiring for leg 1: HX711 DT -> D0, SCK -> D6, VCC -> 3V3, GND -> GND.
 //          DS18B20 temperature sensor(s): DATA -> D7, VDD -> 3V3, GND -> GND, plus a 4.7 kOhm
 //          pull-up resistor between DATA and 3V3. Several DS18B20s can share D7 (one per leg).
 //
@@ -22,9 +24,11 @@
 // ---- configure ----
 const char* DEVICE_ID     = "bench-01";
 
-const int NUM_LEGS = 1;                        // 1..4 HX711 boards connected
-const int DOUT_PINS[4] = {D9,  D0, D2, D4};     // HX711 DT, per leg
-const int SCK_PINS[4]  = {D10, D1, D3, D5};     // HX711 SCK, per leg
+// With the LoRa module only D0, D6 and D7 are free, so there is room for one HX711.
+// SCK is on D6 rather than DT: D6 is UART TX and toggles during boot, which an HX711 input tolerates.
+const int NUM_LEGS = 1;
+const int DOUT_PINS[4] = {D0};                  // HX711 DT, per leg
+const int SCK_PINS[4]  = {D6};                  // HX711 SCK, per leg
 
 const int TEMP_PIN = D7;                        // DS18B20 1-Wire bus
 
