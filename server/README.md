@@ -76,13 +76,13 @@ and prints every packet it receives as a JSON line with RSSI and SNR. Ethernet (
 Temperature: DS18B20 DATA → D7, VDD → 3V3, GND → GND, with a 4.7 kΩ resistor between DATA and 3V3.
 More DS18B20s can share D7; they are reported in bus order and their addresses are printed at boot.
 
-One-time setup (already done on this Mac):
+One-time setup (macOS):
 
 ```bash
 brew install arduino-cli
 arduino-cli config add board_manager.additional_urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
 arduino-cli core update-index && arduino-cli core install esp32:esp32
-arduino-cli lib install "HX711 Arduino Library" OneWire DallasTemperature
+arduino-cli lib install "HX711 Arduino Library" OneWire DallasTemperature RadioLib
 ```
 
 Flash, then run the server and the USB bridge (each in its own terminal):
@@ -93,17 +93,29 @@ python3 server/server.py
 python3 server/serial_bridge.py
 ```
 
+`flash.sh` flashes `siload_bench` by default. Name another sketch to flash that instead:
+
+```bash
+./firmware/flash.sh farm_hub      # LoRa receiver on the farm hub
+./firmware/flash.sh lora_test     # LoRa wiring check
+```
+
+With the farm hub on USB, run `serial_bridge.py` on the hub's port to get the Siload readings that arrive over LoRa.
+Pass a port to choose a specific board, e.g. `./firmware/flash.sh farm_hub /dev/cu.usbmodem1101` and
+`python3 server/serial_bridge.py --port /dev/cu.usbmodem1101`.
+
 On Windows, install arduino-cli with `winget install ArduinoSA.CLI`, run the same `arduino-cli` setup commands
 (in a new terminal), then use `python` instead of `python3` and the Windows flash script:
 
 ```bat
 firmware\flash.cmd
+firmware\flash.cmd farm_hub
 python server\server.py
 python server\serial_bridge.py
 ```
 
 Both pick the first USB COM port automatically (Bluetooth COM ports are skipped); pass the port to choose another,
-e.g. `firmware\flash.cmd COM5` and `python server\serial_bridge.py --port COM5`.
+e.g. `firmware\flash.cmd farm_hub COM5` and `python server\serial_bridge.py --port COM5`.
 
 For Wi-Fi instead of USB, set `WIFI_SSID`, `WIFI_PASSWORD` and `SERVER_URL` in `firmware/siload_bench/secrets.h`
 (copied from `secrets.h.example`, git-ignored) and reflash.
