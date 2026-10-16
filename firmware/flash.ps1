@@ -1,12 +1,26 @@
-# Compile and flash siload_bench to a Seeed Studio XIAO (ESP32-C3 or ESP32-S3) over USB. Windows version of flash.sh.
-# The chip is detected automatically. Run via flash.cmd, which bypasses the PowerShell script policy:
-#   firmware\flash.cmd           # auto-detects the port
-#   firmware\flash.cmd COM5
-param([string]$Port)
+# Compile and flash a sketch to a Seeed Studio XIAO (ESP32-C3 or ESP32-S3) over USB. Windows version of flash.sh.
+# The chip and port are detected automatically. Sketch defaults to siload_bench.
+# Run via flash.cmd, which bypasses the PowerShell script policy:
+#   firmware\flash.cmd                    # siload_bench
+#   firmware\flash.cmd farm_hub           # or lora_test
+#   firmware\flash.cmd farm_hub COM5      # sketch and port, in either order
 $ErrorActionPreference = "Stop"
-Set-Location (Join-Path $PSScriptRoot "siload_bench")
 
-if (-not (Test-Path secrets.h)) { Copy-Item secrets.h.example secrets.h }
+$Sketch = "siload_bench"
+$Port = $null
+foreach ($arg in $args) {
+    if (Test-Path (Join-Path $PSScriptRoot "$arg\$arg.ino")) { $Sketch = $arg }
+    elseif ($arg -match '^COM\d+$') { $Port = $arg }
+    else {
+        $sketches = (Get-ChildItem $PSScriptRoot -Directory | ForEach-Object Name) -join " "
+        Write-Host "Unknown argument '$arg'. Sketches: $sketches"
+        exit 1
+    }
+}
+Set-Location (Join-Path $PSScriptRoot $Sketch)
+
+# Only siload_bench uses Wi-Fi settings.
+if ((Test-Path secrets.h.example) -and -not (Test-Path secrets.h)) { Copy-Item secrets.h.example secrets.h }
 
 if (-not (Get-Command arduino-cli -ErrorAction SilentlyContinue)) {
     $env:Path += ";$env:ProgramFiles\Arduino CLI"
@@ -41,7 +55,7 @@ switch ($chip) {
     default { Write-Host "Could not detect a supported chip on $Port (got: '$chip')."; exit 1 }
 }
 
-Write-Host "Flashing $chip on $Port ($fqbn) ..."
+Write-Host "Flashing $Sketch to $chip on $Port ($fqbn) ..."
 arduino-cli compile --fqbn $fqbn .
 if ($LASTEXITCODE) { exit $LASTEXITCODE }
 arduino-cli upload --fqbn $fqbn -p $Port .
