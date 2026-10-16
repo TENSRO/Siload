@@ -4,7 +4,9 @@
 //   - over LoRa: every LORA_INTERVAL_MS the latest reading goes to the farm hub (firmware/farm_hub), and
 //   - over Wi-Fi: set WIFI_SSID in secrets.h and the board POSTs directly.
 //
-// Libraries: "HX711 Arduino Library" (Bogdan Necula), "OneWire", "DallasTemperature", "RadioLib".
+// Libraries: "HX711 Arduino Library" (Bogdan Necula), "OneWireNg", "RadioLib".
+//          OneWireNg instead of OneWire/DallasTemperature: on the ESP32-S3, D7 is GPIO 44, and the OneWire
+//          library refuses to drive pins above 33 (true on the original ESP32 only), so it never finds a sensor.
 // Board:   Seeed Studio XIAO ESP32S3 with a Wio-SX1262 for XIAO on the header pins
 //          (firmware/flash.sh detects the chip; USB CDC On Boot enabled).
 //          The LoRa module uses D1-D5 and the SPI bus D8/D9/D10, so those are not free.
@@ -20,8 +22,9 @@
 #include <RadioLib.h>
 #include <SPI.h>
 #include "HX711.h"
-#include <OneWire.h>
-#include <DallasTemperature.h>
+#include "OneWireNg_CurrentPlatform.h"
+#include "drivers/DSTherm.h"
+#include "utils/Placeholder.h"
 #include "secrets.h"   // WIFI_SSID, WIFI_PASSWORD, SERVER_URL (copy from secrets.h.example)
 
 // ---- configure ----
@@ -53,8 +56,8 @@ SX1262 radio = new Module(LORA_NSS, LORA_DIO1, LORA_RST, LORA_BUSY);
 bool loraOk = false;
 
 HX711 scales[4];
-OneWire oneWire(TEMP_PIN);
-DallasTemperature tempSensors(&oneWire);
+Placeholder<OneWireNg_CurrentPlatform> oneWire;
+OneWireNg::Id tempIds[4];                       // ROM addresses of the DS18B20s found, in bus order
 int numTempSensors = 0;
 const bool USE_WIFI = sizeof(WIFI_SSID) > 1;   // empty SSID = USB-only mode
 
@@ -75,6 +78,7 @@ void setup() {
     scales[i].begin(DOUT_PINS[i], SCK_PINS[i]);
     scales[i].set_gain(128);
   }
+  new (&oneWire) OneWireNg_CurrentPlatform(TEMP_PIN, false);   // false: external 4.7k pull-up
   findTempSensors();
   setupLora();
   if (USE_WIFI) connectWifi();
@@ -95,32 +99,31 @@ void setupLora() {
 // Scans the 1-Wire bus. Sensors are reported in bus order (by ROM address); the addresses
 // are printed so they can later be mapped to legs.
 void findTempSensors() {
-  tempSensors.begin();
-  tempSensors.setResolution(12);                // 0.0625 degC steps, 750 ms per conversion
-  tempSensors.setWaitForConversion(false);      // convert in the background between readings
-  numTempSensors = min((int)tempSensors.getDeviceCount(), 4);
+  numTempSensors = 0;
+  for (const auto& id : *oneWire) {
+    if (numTempSensors < 4 && DSTherm::getFamilyName(id)) {   // DS18B20 and other Dallas thermometers only
+      memcpy(tempIds[numTempSensors++], id, sizeof(OneWireNg::Id));
+    }
+  }
   Serial.printf("DS18B20: %d sensor(s) on D7\n", numTempSensors);
   if (numTempSensors == 0) {
     // Wiring diagnosis: an idle 1-Wire bus is held HIGH by the 4.7k pull-up, and a
     // connected sensor answers a reset pulse with a "presence" pulse.
-    pinMode(TEMP_PIN, INPUT);
-    delay(1);
     bool idleHigh = digitalRead(TEMP_PIN);
-    bool presence = oneWire.reset();
+    bool presence = oneWire->reset() == OneWireNg::EC_SUCCESS;
     Serial.printf("  bus idle level: %s, presence pulse: %s\n",
                   idleHigh ? "HIGH (pull-up OK)" : "LOW (no 4.7k pull-up, or DATA shorted to GND)",
                   presence ? "yes (sensor answers, but ROM search failed)" : "no (no sensor on D7)");
+    return;
   }
   for (int i = 0; i < numTempSensors; i++) {
-    DeviceAddress addr;
-    if (!tempSensors.getAddress(addr, i)) continue;
-    Serial.print("  sensor ");
-    Serial.print(i + 1);
-    Serial.print(": ");
-    for (int b = 0; b < 8; b++) Serial.printf("%02X", addr[b]);
+    Serial.printf("  sensor %d: ", i + 1);
+    for (int b = 0; b < 8; b++) Serial.printf("%02X", tempIds[i][b]);
     Serial.println();
   }
-  if (numTempSensors) tempSensors.requestTemperatures();
+  DSTherm drv(oneWire);
+  drv.writeScratchpadAll(0, 0, DSTherm::RES_12_BIT);   // 0.0625 degC steps, 750 ms per conversion
+  drv.convertTempAll(0);                               // 0 = don't wait: convert in the background
 }
 
 void loop() {
@@ -147,14 +150,20 @@ void loop() {
     findTempSensors();
   }
   if (numTempSensors) {
+    DSTherm drv(oneWire);
+    Placeholder<DSTherm::Scratchpad> scratchpad;
     json += ",\"temp_c\":[";
     for (int i = 0; i < numTempSensors; i++) {
       if (i) json += ",";
-      float t = tempSensors.getTempCByIndex(i);
-      json += (t == DEVICE_DISCONNECTED_C) ? String("null") : String(t, 2);   // null = sensor lost
+      if (drv.readScratchpad(tempIds[i], scratchpad) == OneWireNg::EC_SUCCESS) {
+        const DSTherm::Scratchpad& sp = scratchpad;
+        json += String(sp.getTemp2() / 16.0, 2);     // getTemp2() is in 1/16 degC
+      } else {
+        json += "null";                               // sensor lost or CRC error
+      }
     }
     json += "]";
-    tempSensors.requestTemperatures();
+    drv.convertTempAll(0);
   }
   json += "}";
 

@@ -82,7 +82,7 @@ One-time setup (macOS):
 brew install arduino-cli
 arduino-cli config add board_manager.additional_urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
 arduino-cli core update-index && arduino-cli core install esp32:esp32
-arduino-cli lib install "HX711 Arduino Library" OneWire DallasTemperature RadioLib
+arduino-cli lib install "HX711 Arduino Library" OneWireNg RadioLib
 ```
 
 Flash, then run the server and the USB bridge (each in its own terminal):
