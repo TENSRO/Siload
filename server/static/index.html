@@ -382,7 +382,7 @@ function render() {
 
   const age = last ? Date.now() / 1000 - last.ts : Infinity;
   const count = isLong() ? rows.reduce((s, r) => s + r.n, 0) : rows.length;
-  $("dot").className = "dot " + (age < 10 ? "live" : age < 60 ? "stale" : "");
+  $("dot").className = "dot " + (age < 30 ? "live" : age < 120 ? "stale" : "");   // LoRa readings arrive every 15 s
   $("statusText").textContent = (last ? `last reading ${age < 1 ? "just now" : Math.round(age) + " s ago"}` : "no live readings")
     + ` · ${count} in window` + (isLong() ? ` (avg per ${bucketSeconds()} s)` : "");
 
@@ -488,9 +488,12 @@ function drawChart(canvas, rows, series, digits, minRange, colors) {
   }
 
   // lines + sample dots (dots only when they're far enough apart to see)
-  const showDots = state.seconds <= 60;
-  // break the line where readings are missing for more than 3 buckets (e.g. board unplugged)
-  const maxGap = 3 * (isLong() ? bucketSeconds() : 1) + 2;
+  const showDots = (W - L - R) / Math.max(1, rows.length) >= 4;
+  // break the line where readings are missing for more than 3 typical intervals (e.g. board unplugged).
+  // The typical interval is the median gap: 1 s over USB, 15 s over LoRa, or the bucket size.
+  const gaps = xs.slice(1).map((t, j) => t - xs[j]).sort((a, b) => a - b);
+  const typical = Math.max(gaps.length ? gaps[gaps.length >> 1] : 1, isLong() ? bucketSeconds() : 1);
+  const maxGap = 3 * typical + 2;
   series.forEach((s, i) => {
     ctx.strokeStyle = ctx.fillStyle = colors ? colors[i] : css(COLORS[i]);
     ctx.lineWidth = 1.5;
