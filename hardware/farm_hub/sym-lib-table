@@ -1,0 +1,1 @@
+(sym_lib_table (version 7) (lib (name "SILOAD") (type "KiCad") (uri "${KIPRJMOD}/SILOAD.kicad_sym") (options "") (descr "SILOAD carrier connectors")))

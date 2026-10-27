@@ -1,0 +1,20 @@
+{
+  "SILOAD REV A-assembly.step": {
+    "valid": true,
+    "solid_count": 109,
+    "extent_mm": [
+      55.0,
+      36.75,
+      26.45
+    ]
+  },
+  "SILOAD REV A-carrier.step": {
+    "valid": true,
+    "solid_count": 1,
+    "extent_mm": [
+      55.0,
+      36.0,
+      1.51
+    ]
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "board_mm": [
+    59,
+    36
+  ],
+  "connector_front_Y_mm": {
+    "USB-C": 2.5,
+    "RJ45_reference": 2.5000000000000036
+  },
+  "panel_datum_Y_mm": 2.5,
+  "mounting_holes": [
+    [
+      "H1",
+      53.5,
+      53.5
+    ],
+    [
+      "H2",
+      105.5,
+      53.5
+    ],
+    [
+      "H3",
+      53.5,
+      82.5
+    ],
+    [
+      "H4",
+      105.5,
+      82.5
+    ]
+  ],
+  "screw_head_diameter_mm": 5.0,
+  "screw_head_to_body_clearance_mm": {
+    "H1 to XIAO/Wio": 0.75,
+    "H1 to W5500": 20.55,
+    "H1 to C1": 25.698,
+    "H1 to C2": 27.471,
+    "H2 to XIAO/Wio": 28.45,
+    "H2 to W5500": 1.45,
+    "H2 to C1": 45.694,
+    "H2 to C2": 39.823,
+    "H3 to XIAO/Wio": 9.964,
+    "H3 to W5500": 21.09,
+    "H3 to C1": 4.75,
+    "H3 to C2": 11.5,
+    "H4 to XIAO/Wio": 30.707,
+    "H4 to W5500": 3.888,
+    "H4 to C1": 37.25,
+    "H4 to C2": 30.5
+  },
+  "screw_head_to_track_clearance_mm": {
+    "H1": 2.126,
+    "H2": 4.412,
+    "H3": 4.45,
+    "H4": 8.876
+  },
+  "component_body_clearance_mm": {
+    "XIAO/Wio to C1": 10.283,
+    "XIAO/Wio to C2": 9.533,
+    "XIAO/Wio to W5500": 2.0,
+    "W5500 to C1": 11.284,
+    "W5500 to C2": 4.77
+  },
+  "track_segments": {
+    "horizontal": 23,
+    "vertical": 21,
+    "diagonal45": 51
+  },
+  "status": "PASS for CAD and reference module envelopes; physical ARCELI dimensions still unconfirmed"
+}

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>C:\Users\leonb\Documents\KiCad\SILOAD REV A\SILOAD REV A.kicad_sch</source>
+    <date>2026-10-27T22:20:32</date>
+    <tool>Eeschema 10.0.6</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>SILOAD REV A - Farm hub carrier</title>
+        <company/>
+        <rev>A DRAFT</rev>
+        <date>2026-10-27</date>
+        <source>SILOAD REV A.kicad_sch</source>
+        <comment number="1" value="CHECK MODULE FIT BEFORE FABRICATION"/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>100nF_50V_ceramic_THT</value>
+      <footprint>Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="SILOAD" part="C1_capacitor" description=""/>
+      <property name="Sheetname" value="SILOAD REV A"/>
+      <property name="Sheetfile" value="SILOAD REV A.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7271b099-860e-4a88-af3f-01f84af11eda</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C2">
+      <value>10uF_16V_electrolytic_THT</value>
+      <footprint>Capacitor_THT:CP_Radial_D5.0mm_P2.00mm</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_THT:CP_Radial_D5.0mm_P2.00mm</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="SILOAD" part="C2_capacitor" description=""/>
+      <property name="Sheetname" value="SILOAD REV A"/>
+      <property name="Sheetfile" value="SILOAD REV A.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>edf194b3-dfcc-412a-b673-1c5cd2baff92</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J1">
+      <value>XIAO_LEFT</value>
+      <footprint>Connector_PinSocket_2.54mm:PinSocket_1x07_P2.54mm_Vertical</footprint>
+      <fields>
+        <field name="Footprint">Connector_PinSocket_2.54mm:PinSocket_1x07_P2.54mm_Vertical</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="SILOAD" part="J1_socket" description=""/>
+      <property name="Sheetname" value="SILOAD REV A"/>
+      <property name="Sheetfile" value="SILOAD REV A.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>81bdd254-9ee5-4c62-ac2c-78ee8ea13f1f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J2">
+      <value>XIAO_RIGHT</value>
+      <footprint>Connector_PinSocket_2.54mm:PinSocket_1x07_P2.54mm_Vertical</footprint>
+      <fields>
+        <field name="Footprint">Connector_PinSocket_2.54mm:PinSocket_1x07_P2.54mm_Vertical</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="SILOAD" part="J2_socket" description=""/>
+      <property name="Sheetname" value="SILOAD REV A"/>
+      <property name="Sheetfile" value="SILOAD REV A.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>72857e5b-6197-4db8-92cd-a1eac29818ce</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J3">
+      <value>W5500_LEFT</value>
+      <footprint>Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical</footprint>
+      <fields>
+        <field name="Footprint">Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="SILOAD" part="J3_socket" description=""/>
+      <property name="Sheetname" value="SILOAD REV A"/>
+      <property name="Sheetfile" value="SILOAD REV A.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fa0c405f-bf1e-4006-a457-7ca58dc00a67</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J4">
+      <value>W5500_RIGHT</value>
+      <footprint>Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical</footprint>
+      <fields>
+        <field name="Footprint">Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="SILOAD" part="J4_socket" description=""/>
+      <property name="Sheetname" value="SILOAD REV A"/>
+      <property name="Sheetfile" value="SILOAD REV A.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3a6ff844-0c47-41c4-bb4c-0007a4aa64fa</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="SILOAD" part="C1_capacitor">
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">100nF_50V_ceramic_THT</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SILOAD" part="C2_capacitor">
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">10uF_16V_electrolytic_THT</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="+" type="passive"/>
+        <pin num="2" name="-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SILOAD" part="J1_socket">
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">XIAO_LEFT</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="D0_GPIO1" type="passive"/>
+        <pin num="2" name="D1_GPIO2" type="passive"/>
+        <pin num="3" name="D2_GPIO3" type="passive"/>
+        <pin num="4" name="D3_GPIO4" type="passive"/>
+        <pin num="5" name="D4_GPIO5" type="passive"/>
+        <pin num="6" name="D5_GPIO6" type="passive"/>
+        <pin num="7" name="D6_GPIO43" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SILOAD" part="J2_socket">
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">XIAO_RIGHT</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="5V_USB" type="passive"/>
+        <pin num="2" name="GND" type="passive"/>
+        <pin num="3" name="3V3" type="passive"/>
+        <pin num="4" name="D10_GPIO9" type="passive"/>
+        <pin num="5" name="D9_GPIO8" type="passive"/>
+        <pin num="6" name="D8_GPIO7" type="passive"/>
+        <pin num="7" name="D7_GPIO44" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SILOAD" part="J3_socket">
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">W5500_LEFT</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="passive"/>
+        <pin num="2" name="GND" type="passive"/>
+        <pin num="3" name="MOSI" type="passive"/>
+        <pin num="4" name="SCLK" type="passive"/>
+        <pin num="5" name="CSn" type="passive"/>
+        <pin num="6" name="INTn" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SILOAD" part="J4_socket">
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">W5500_RIGHT</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="passive"/>
+        <pin num="2" name="3V3" type="passive"/>
+        <pin num="3" name="3V3" type="passive"/>
+        <pin num="4" name="NC" type="passive"/>
+        <pin num="5" name="RSTn" type="passive"/>
+        <pin num="6" name="MISO" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="SILOAD">
+      <uri>${KIPRJMOD}/SILOAD.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/+3V3" class="Default">
+      <node ref="C1" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C2" pin="1" pinfunction="+_1" pintype="passive"/>
+      <node ref="J2" pin="3" pinfunction="3V3_3" pintype="passive"/>
+      <node ref="J4" pin="2" pinfunction="3V3_2" pintype="passive"/>
+      <node ref="J4" pin="3" pinfunction="3V3_3" pintype="passive"/>
+    </net>
+    <net code="2" name="/ETH_CSn" class="Default">
+      <node ref="J1" pin="1" pinfunction="D0_GPIO1_1" pintype="passive"/>
+      <node ref="J3" pin="5" pinfunction="CSn_5" pintype="passive"/>
+    </net>
+    <net code="3" name="/ETH_INTn" class="Default">
+      <node ref="J2" pin="7" pinfunction="D7_GPIO44_7" pintype="passive"/>
+      <node ref="J3" pin="6" pinfunction="INTn_6" pintype="passive"/>
+    </net>
+    <net code="4" name="/ETH_RESETn" class="Default">
+      <node ref="J1" pin="7" pinfunction="D6_GPIO43_7" pintype="passive"/>
+      <node ref="J4" pin="5" pinfunction="RSTn_5" pintype="passive"/>
+    </net>
+    <net code="5" name="/GND" class="Default">
+      <node ref="C1" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C2" pin="2" pinfunction="-_2" pintype="passive"/>
+      <node ref="J2" pin="2" pinfunction="GND_2" pintype="passive"/>
+      <node ref="J3" pin="1" pinfunction="GND_1" pintype="passive"/>
+      <node ref="J3" pin="2" pinfunction="GND_2" pintype="passive"/>
+      <node ref="J4" pin="1" pinfunction="GND_1" pintype="passive"/>
+    </net>
+    <net code="6" name="/SPI_MISO" class="Default">
+      <node ref="J2" pin="5" pinfunction="D9_GPIO8_5" pintype="passive"/>
+      <node ref="J4" pin="6" pinfunction="MISO_6" pintype="passive"/>
+    </net>
+    <net code="7" name="/SPI_MOSI" class="Default">
+      <node ref="J2" pin="4" pinfunction="D10_GPIO9_4" pintype="passive"/>
+      <node ref="J3" pin="3" pinfunction="MOSI_3" pintype="passive"/>
+    </net>
+    <net code="8" name="/SPI_SCK" class="Default">
+      <node ref="J2" pin="6" pinfunction="D8_GPIO7_6" pintype="passive"/>
+      <node ref="J3" pin="4" pinfunction="SCLK_4" pintype="passive"/>
+    </net>
+    <net code="9" name="unconnected-(J1-D1_GPIO2-Pad2)" class="Default">
+      <node ref="J1" pin="2" pinfunction="D1_GPIO2_2" pintype="passive+no_connect"/>
+    </net>
+    <net code="10" name="unconnected-(J1-D2_GPIO3-Pad3)" class="Default">
+      <node ref="J1" pin="3" pinfunction="D2_GPIO3_3" pintype="passive+no_connect"/>
+    </net>
+    <net code="11" name="unconnected-(J1-D3_GPIO4-Pad4)" class="Default">
+      <node ref="J1" pin="4" pinfunction="D3_GPIO4_4" pintype="passive+no_connect"/>
+    </net>
+    <net code="12" name="unconnected-(J1-D4_GPIO5-Pad5)" class="Default">
+      <node ref="J1" pin="5" pinfunction="D4_GPIO5_5" pintype="passive+no_connect"/>
+    </net>
+    <net code="13" name="unconnected-(J1-D5_GPIO6-Pad6)" class="Default">
+      <node ref="J1" pin="6" pinfunction="D5_GPIO6_6" pintype="passive+no_connect"/>
+    </net>
+    <net code="14" name="unconnected-(J2-5V_USB-Pad1)" class="Default">
+      <node ref="J2" pin="1" pinfunction="5V_USB_1" pintype="passive+no_connect"/>
+    </net>
+    <net code="15" name="unconnected-(J4-NC-Pad4)" class="Default">
+      <node ref="J4" pin="4" pinfunction="NC_4" pintype="passive+no_connect"/>
+    </net>
+  </nets>
+</export>
