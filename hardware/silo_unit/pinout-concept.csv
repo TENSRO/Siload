@@ -1,0 +1,14 @@
+XIAO / Module,GPIO,Net,Connected pads
+XIAO D0,1,HX_DT,J1.1 -> J3.3 (HX711 DT)
+XIAO D6,43,HX_SCK,J1.7 -> J3.2 (HX711 SCK)
+XIAO D7,44,ONEWIRE_DQ,J2.7 -> J9.2 (DS18B20 DQ) + R1.2 (4.7k pull-up)
+XIAO D8 (idle SPI SCK),7,MUX_A,J2.6 -> U1.10 (CD4052BE SEL_A)
+XIAO D10 (idle SPI MOSI),9,MUX_B,J2.4 -> U1.9 (CD4052BE SEL_B)
+XIAO 3V3,,+3V3,"J2.3 -> J3.1, U1.16, J9.1, R1.1, C1.1, C2.1"
+XIAO GND,,GND,"J2.2 -> J3.4, U1.6, U1.7, U1.8, J9.3, C1.2, C2.2"
+HX711 Excitation,,LC_EP / LC_EN,"J4.6 (E+) / J4.5 (E-) -> J5..J8 pins 1 & 2 (E+ red, E- blk)"
+HX711 Differential In,,HX_AP / HX_AN,"J4.3 (A+) -> U1.13 (X_COM), J4.4 (A-) -> U1.3 (Y_COM)"
+Sensor 1 (SEL=00),,LC1_AN / LC1_AP,"J5.3 -> U1.1 (Y0), J5.4 -> U1.12 (X0)"
+Sensor 2 (SEL=01),,LC2_AN / LC2_AP,"J6.3 -> U1.5 (Y1), J6.4 -> U1.14 (X1)"
+Sensor 3 (SEL=10),,LC3_AN / LC3_AP,"J7.3 -> U1.2 (Y2), J7.4 -> U1.15 (X2)"
+Sensor 4 (SEL=11),,LC4_AN / LC4_AP,"J8.3 -> U1.4 (Y3), J8.4 -> U1.11 (X3)"

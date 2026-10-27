@@ -1,0 +1,1913 @@
+(export
+	(version "E")
+	(design
+		(source "C:\\Users\\leonb\\Documents\\KiCad\\SILOAD LOAD CELL REV A\\SILOAD LOAD CELL REV A.kicad_sch")
+		(date "2026-10-28T00:23:52")
+		(tool "Eeschema 10.0.6")
+		(sheet
+			(number "1")
+			(name "/")
+			(tstamps "/")
+			(title_block
+				(title "SILOAD LOAD CELL REV A - Silo unit carrier (68x44 mm)")
+				(company)
+				(rev "A PROTOTYPE")
+				(date "2026-10-27")
+				(source "SILOAD LOAD CELL REV A.kicad_sch")
+				(comment
+					(number "1")
+					(value "4x Load Cell Sensors + CD4052 Mux + Heemol HX711 (34x21mm) + DS18B20")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+	)
+	(components
+		(comp
+			(ref "C1")
+			(value "100nF_50V_ceramic_THT")
+			(footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm")
+			(fields
+				(field
+					(name "Footprint") "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "SILOAD")
+				(part "C1_part")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "SILOAD LOAD CELL REV A")
+			)
+			(property
+				(name "Sheetfile")
+				(value "SILOAD LOAD CELL REV A.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "5aaa58a0-6867-49f8-89f4-1d57c4c04216")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C2")
+			(value "10uF_16V_electrolytic_THT")
+			(footprint "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm")
+			(fields
+				(field
+					(name "Footprint") "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "SILOAD")
+				(part "C2_part")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "SILOAD LOAD CELL REV A")
+			)
+			(property
+				(name "Sheetfile")
+				(value "SILOAD LOAD CELL REV A.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "d2a8d1ff-1100-489a-9e1e-548265c0cc3b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J1")
+			(value "XIAO_LEFT")
+			(footprint "Connector_PinSocket_2.54mm:PinSocket_1x07_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinSocket_2.54mm:PinSocket_1x07_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "SILOAD")
+				(part "J1_part")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "SILOAD LOAD CELL REV A")
+			)
+			(property
+				(name "Sheetfile")
+				(value "SILOAD LOAD CELL REV A.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "7fcb8299-21eb-42f9-bbdc-59592c9e5256")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J2")
+			(value "XIAO_RIGHT")
+			(footprint "Connector_PinSocket_2.54mm:PinSocket_1x07_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinSocket_2.54mm:PinSocket_1x07_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "SILOAD")
+				(part "J2_part")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "SILOAD LOAD CELL REV A")
+			)
+			(property
+				(name "Sheetfile")
+				(value "SILOAD LOAD CELL REV A.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "3489ba57-dfde-4b47-8d03-0598b430ba2a")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J3")
+			(value "HX711_MCU")
+			(footprint "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "SILOAD")
+				(part "J3_part")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "SILOAD LOAD CELL REV A")
+			)
+			(property
+				(name "Sheetfile")
+				(value "SILOAD LOAD CELL REV A.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "c58694fa-fdd6-4564-bdd5-e27311063b2c")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J4")
+			(value "HX711_BRIDGE")
+			(footprint "Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "SILOAD")
+				(part "J4_part")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "SILOAD LOAD CELL REV A")
+			)
+			(property
+				(name "Sheetfile")
+				(value "SILOAD LOAD CELL REV A.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "d3333c8d-6f80-4dcd-a3c9-68e5caaed96b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J5")
+			(value "SENS1_LOADCELL")
+			(footprint "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "SILOAD")
+				(part "J5_part")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "SILOAD LOAD CELL REV A")
+			)
+			(property
+				(name "Sheetfile")
+				(value "SILOAD LOAD CELL REV A.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "9608fa79-0e5d-4d89-9912-76735532b90b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J6")
+			(value "SENS2_LOADCELL")
+			(footprint "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "SILOAD")
+				(part "J6_part")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "SILOAD LOAD CELL REV A")
+			)
+			(property
+				(name "Sheetfile")
+				(value "SILOAD LOAD CELL REV A.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "06e06e18-c301-47fd-af2e-0da46c5ec426")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J7")
+			(value "SENS3_LOADCELL")
+			(footprint "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "SILOAD")
+				(part "J7_part")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "SILOAD LOAD CELL REV A")
+			)
+			(property
+				(name "Sheetfile")
+				(value "SILOAD LOAD CELL REV A.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "09a1700c-656e-49f9-bee1-fa9ae1743168")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J8")
+			(value "SENS4_LOADCELL")
+			(footprint "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "SILOAD")
+				(part "J8_part")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "SILOAD LOAD CELL REV A")
+			)
+			(property
+				(name "Sheetfile")
+				(value "SILOAD LOAD CELL REV A.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "d46c5899-a28c-4f81-843d-1316ed5f79ef")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J9")
+			(value "TEMP_DS18B20")
+			(footprint "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "SILOAD")
+				(part "J9_part")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "SILOAD LOAD CELL REV A")
+			)
+			(property
+				(name "Sheetfile")
+				(value "SILOAD LOAD CELL REV A.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "972022d5-32e4-4a17-abc7-df1240a3368e")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R1")
+			(value "4.7k_1Wire_pullup")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "SILOAD")
+				(part "R1_part")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "SILOAD LOAD CELL REV A")
+			)
+			(property
+				(name "Sheetfile")
+				(value "SILOAD LOAD CELL REV A.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "a8daa970-64a2-466d-899e-fa5e23aecca7")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U1")
+			(value "CD4052BE_MUX")
+			(footprint "Package_DIP:DIP-16_W7.62mm_Socket")
+			(fields
+				(field
+					(name "Footprint") "Package_DIP:DIP-16_W7.62mm_Socket")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "SILOAD")
+				(part "U1_part")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "SILOAD LOAD CELL REV A")
+			)
+			(property
+				(name "Sheetfile")
+				(value "SILOAD LOAD CELL REV A.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "af683de1-97cc-481b-b4eb-65d74d0f919f")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "11")
+						)
+						(pin
+							(num "12")
+						)
+						(pin
+							(num "13")
+						)
+						(pin
+							(num "14")
+						)
+						(pin
+							(num "15")
+						)
+						(pin
+							(num "16")
+						)
+					)
+				)
+			)
+		)
+	)
+	(groups)
+	(variants)
+	(libparts
+		(libpart
+			(lib "SILOAD")
+			(part "C1_part")
+			(fields
+				(field
+					(name "Reference") "C")
+				(field
+					(name "Value") "100nF_50V_ceramic_THT")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "2")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "SILOAD")
+			(part "C2_part")
+			(fields
+				(field
+					(name "Reference") "C")
+				(field
+					(name "Value") "10uF_16V_electrolytic_THT")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "+")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "-")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "SILOAD")
+			(part "J1_part")
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "XIAO_LEFT")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "D0_GPIO1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "D1_GPIO2")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "D2_GPIO3")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "D3_GPIO4")
+					(type "passive")
+				)
+				(pin
+					(num "5")
+					(name "D4_GPIO5")
+					(type "passive")
+				)
+				(pin
+					(num "6")
+					(name "D5_GPIO6")
+					(type "passive")
+				)
+				(pin
+					(num "7")
+					(name "D6_GPIO43")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "SILOAD")
+			(part "J2_part")
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "XIAO_RIGHT")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "5V_USB")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "3V3")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "D10_GPIO9")
+					(type "passive")
+				)
+				(pin
+					(num "5")
+					(name "D9_GPIO8")
+					(type "passive")
+				)
+				(pin
+					(num "6")
+					(name "D8_GPIO7")
+					(type "passive")
+				)
+				(pin
+					(num "7")
+					(name "D7_GPIO44")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "SILOAD")
+			(part "J3_part")
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "HX711_MCU")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "VCC")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "SCK")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "DT")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "GND")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "SILOAD")
+			(part "J4_part")
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "HX711_BRIDGE")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "B+")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "B-")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "A+")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "A-")
+					(type "passive")
+				)
+				(pin
+					(num "5")
+					(name "E-")
+					(type "passive")
+				)
+				(pin
+					(num "6")
+					(name "E+")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "SILOAD")
+			(part "J5_part")
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "SENS1_LOADCELL")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "E+_RED")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "E-_BLK")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "A-_WHT")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "A+_GRN")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "SILOAD")
+			(part "J6_part")
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "SENS2_LOADCELL")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "E+_RED")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "E-_BLK")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "A-_WHT")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "A+_GRN")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "SILOAD")
+			(part "J7_part")
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "SENS3_LOADCELL")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "E+_RED")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "E-_BLK")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "A-_WHT")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "A+_GRN")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "SILOAD")
+			(part "J8_part")
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "SENS4_LOADCELL")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "E+_RED")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "E-_BLK")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "A-_WHT")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "A+_GRN")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "SILOAD")
+			(part "J9_part")
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "TEMP_DS18B20")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "VDD_3V3")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "DQ_D7")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "GND")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "SILOAD")
+			(part "R1_part")
+			(fields
+				(field
+					(name "Reference") "R")
+				(field
+					(name "Value") "4.7k_1Wire_pullup")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "2")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "SILOAD")
+			(part "U1_part")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "CD4052BE_MUX")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "Y0_S1_A-")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "Y2_S3_A-")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "Y_COM_A-")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "Y3_S4_A-")
+					(type "passive")
+				)
+				(pin
+					(num "5")
+					(name "Y1_S2_A-")
+					(type "passive")
+				)
+				(pin
+					(num "6")
+					(name "INH")
+					(type "passive")
+				)
+				(pin
+					(num "7")
+					(name "VEE")
+					(type "passive")
+				)
+				(pin
+					(num "8")
+					(name "VSS")
+					(type "passive")
+				)
+				(pin
+					(num "9")
+					(name "SEL_B")
+					(type "passive")
+				)
+				(pin
+					(num "10")
+					(name "SEL_A")
+					(type "passive")
+				)
+				(pin
+					(num "11")
+					(name "X3_S4_A+")
+					(type "passive")
+				)
+				(pin
+					(num "12")
+					(name "X0_S1_A+")
+					(type "passive")
+				)
+				(pin
+					(num "13")
+					(name "X_COM_A+")
+					(type "passive")
+				)
+				(pin
+					(num "14")
+					(name "X1_S2_A+")
+					(type "passive")
+				)
+				(pin
+					(num "15")
+					(name "X2_S3_A+")
+					(type "passive")
+				)
+				(pin
+					(num "16")
+					(name "VDD")
+					(type "passive")
+				)
+			)
+		)
+	)
+	(libraries
+		(library
+			(logical "SILOAD")
+			(uri "${KIPRJMOD}/SILOAD.kicad_sym")
+		)
+	)
+	(nets
+		(net
+			(code "1")
+			(name "/+3V3")
+			(class "Default")
+			(node
+				(ref "C1")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C2")
+				(pin "1")
+				(pinfunction "+_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J2")
+				(pin "3")
+				(pinfunction "3V3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "J3")
+				(pin "1")
+				(pinfunction "VCC_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J9")
+				(pin "1")
+				(pinfunction "VDD_3V3_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R1")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "16")
+				(pinfunction "VDD_16")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "2")
+			(name "/GND")
+			(class "Default")
+			(node
+				(ref "C1")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C2")
+				(pin "2")
+				(pinfunction "-_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "J2")
+				(pin "2")
+				(pinfunction "GND_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "J3")
+				(pin "4")
+				(pinfunction "GND_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "J9")
+				(pin "3")
+				(pinfunction "GND_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "6")
+				(pinfunction "INH_6")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "7")
+				(pinfunction "VEE_7")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "8")
+				(pinfunction "VSS_8")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "3")
+			(name "/HX_AN")
+			(class "Default")
+			(node
+				(ref "J4")
+				(pin "4")
+				(pinfunction "A-_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "3")
+				(pinfunction "Y_COM_A-_3")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "4")
+			(name "/HX_AP")
+			(class "Default")
+			(node
+				(ref "J4")
+				(pin "3")
+				(pinfunction "A+_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "13")
+				(pinfunction "X_COM_A+_13")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "5")
+			(name "/HX_DT")
+			(class "Default")
+			(node
+				(ref "J1")
+				(pin "1")
+				(pinfunction "D0_GPIO1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J3")
+				(pin "3")
+				(pinfunction "DT_3")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "6")
+			(name "/HX_SCK")
+			(class "Default")
+			(node
+				(ref "J1")
+				(pin "7")
+				(pinfunction "D6_GPIO43_7")
+				(pintype "passive")
+			)
+			(node
+				(ref "J3")
+				(pin "2")
+				(pinfunction "SCK_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "7")
+			(name "/LC1_AN")
+			(class "Default")
+			(node
+				(ref "J5")
+				(pin "3")
+				(pinfunction "A-_WHT_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "1")
+				(pinfunction "Y0_S1_A-_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "8")
+			(name "/LC1_AP")
+			(class "Default")
+			(node
+				(ref "J5")
+				(pin "4")
+				(pinfunction "A+_GRN_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "12")
+				(pinfunction "X0_S1_A+_12")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "9")
+			(name "/LC2_AN")
+			(class "Default")
+			(node
+				(ref "J6")
+				(pin "3")
+				(pinfunction "A-_WHT_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "5")
+				(pinfunction "Y1_S2_A-_5")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "10")
+			(name "/LC2_AP")
+			(class "Default")
+			(node
+				(ref "J6")
+				(pin "4")
+				(pinfunction "A+_GRN_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "14")
+				(pinfunction "X1_S2_A+_14")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "11")
+			(name "/LC3_AN")
+			(class "Default")
+			(node
+				(ref "J7")
+				(pin "3")
+				(pinfunction "A-_WHT_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "2")
+				(pinfunction "Y2_S3_A-_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "12")
+			(name "/LC3_AP")
+			(class "Default")
+			(node
+				(ref "J7")
+				(pin "4")
+				(pinfunction "A+_GRN_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "15")
+				(pinfunction "X2_S3_A+_15")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "13")
+			(name "/LC4_AN")
+			(class "Default")
+			(node
+				(ref "J8")
+				(pin "3")
+				(pinfunction "A-_WHT_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "4")
+				(pinfunction "Y3_S4_A-_4")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "14")
+			(name "/LC4_AP")
+			(class "Default")
+			(node
+				(ref "J8")
+				(pin "4")
+				(pinfunction "A+_GRN_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "11")
+				(pinfunction "X3_S4_A+_11")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "15")
+			(name "/LC_EN")
+			(class "Default")
+			(node
+				(ref "J4")
+				(pin "5")
+				(pinfunction "E-_5")
+				(pintype "passive")
+			)
+			(node
+				(ref "J5")
+				(pin "2")
+				(pinfunction "E-_BLK_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "J6")
+				(pin "2")
+				(pinfunction "E-_BLK_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "J7")
+				(pin "2")
+				(pinfunction "E-_BLK_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "J8")
+				(pin "2")
+				(pinfunction "E-_BLK_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "16")
+			(name "/LC_EP")
+			(class "Default")
+			(node
+				(ref "J4")
+				(pin "6")
+				(pinfunction "E+_6")
+				(pintype "passive")
+			)
+			(node
+				(ref "J5")
+				(pin "1")
+				(pinfunction "E+_RED_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J6")
+				(pin "1")
+				(pinfunction "E+_RED_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J7")
+				(pin "1")
+				(pinfunction "E+_RED_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J8")
+				(pin "1")
+				(pinfunction "E+_RED_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "17")
+			(name "/MUX_A")
+			(class "Default")
+			(node
+				(ref "J2")
+				(pin "6")
+				(pinfunction "D8_GPIO7_6")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "10")
+				(pinfunction "SEL_A_10")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "18")
+			(name "/MUX_B")
+			(class "Default")
+			(node
+				(ref "J2")
+				(pin "4")
+				(pinfunction "D10_GPIO9_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "9")
+				(pinfunction "SEL_B_9")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "19")
+			(name "/ONEWIRE_DQ")
+			(class "Default")
+			(node
+				(ref "J2")
+				(pin "7")
+				(pinfunction "D7_GPIO44_7")
+				(pintype "passive")
+			)
+			(node
+				(ref "J9")
+				(pin "2")
+				(pinfunction "DQ_D7_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R1")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "20")
+			(name "unconnected-(J1-D1_GPIO2-Pad2)")
+			(class "Default")
+			(node
+				(ref "J1")
+				(pin "2")
+				(pinfunction "D1_GPIO2_2")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "21")
+			(name "unconnected-(J1-D2_GPIO3-Pad3)")
+			(class "Default")
+			(node
+				(ref "J1")
+				(pin "3")
+				(pinfunction "D2_GPIO3_3")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "22")
+			(name "unconnected-(J1-D3_GPIO4-Pad4)")
+			(class "Default")
+			(node
+				(ref "J1")
+				(pin "4")
+				(pinfunction "D3_GPIO4_4")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "23")
+			(name "unconnected-(J1-D4_GPIO5-Pad5)")
+			(class "Default")
+			(node
+				(ref "J1")
+				(pin "5")
+				(pinfunction "D4_GPIO5_5")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "24")
+			(name "unconnected-(J1-D5_GPIO6-Pad6)")
+			(class "Default")
+			(node
+				(ref "J1")
+				(pin "6")
+				(pinfunction "D5_GPIO6_6")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "25")
+			(name "unconnected-(J2-5V_USB-Pad1)")
+			(class "Default")
+			(node
+				(ref "J2")
+				(pin "1")
+				(pinfunction "5V_USB_1")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "26")
+			(name "unconnected-(J2-D9_GPIO8-Pad5)")
+			(class "Default")
+			(node
+				(ref "J2")
+				(pin "5")
+				(pinfunction "D9_GPIO8_5")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "27")
+			(name "unconnected-(J4-B+-Pad1)")
+			(class "Default")
+			(node
+				(ref "J4")
+				(pin "1")
+				(pinfunction "B+_1")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "28")
+			(name "unconnected-(J4-B--Pad2)")
+			(class "Default")
+			(node
+				(ref "J4")
+				(pin "2")
+				(pinfunction "B-_2")
+				(pintype "passive+no_connect")
+			)
+		)
+	)
+)
