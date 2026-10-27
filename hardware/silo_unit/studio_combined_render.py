@@ -126,6 +126,17 @@ combined_cameras = [
 for filename, cam in combined_cameras:
     scene.camera = cam
     out_path = OUT / filename
-    scene.render.filepath = str(out_path)
+    tmp_path = OUT / ('_tmp_' + filename)
+    scene.render.filepath = str(tmp_path)
     bpy.ops.render.render(write_still=True)
+    try:
+        tmp_path.replace(out_path)
+    except Exception:
+        pass
+    repo_out = Path(r'C:\Users\leonb\Siload\hardware\silo_unit\visuals') / filename
+    if repo_out.parent.exists():
+        import shutil
+        shutil.copy2(tmp_path if tmp_path.exists() else out_path, repo_out)
+    if tmp_path.exists():
+        tmp_path.unlink()
     print('COMBINED_RENDER_COMPLETE', out_path, flush=True)

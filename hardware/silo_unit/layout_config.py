@@ -38,8 +38,10 @@ SENS_POSITIONS = [
 # Bottom-left: 1x DS18B20 temperature sensor 3-pin header (horizontal)
 TEMP_POS = (60.0, 89.2, 90)
 
-# SiLoad logo center on front silkscreen (centered in the 25.4 mm span between J3 and J4)
-LOGO_CENTER = (93.8, 63.0)
+# SiLoad logo on the left vertical side between H1 and H3 (100% visible from top view)
+LOGO_CENTER = (53.4, 72.0)
+LOGO_SCALE = 0.82
+LOGO_VERTICAL = True
 
 REFERENCE_POSITIONS = {
     'J1': (58.1, 71.7),

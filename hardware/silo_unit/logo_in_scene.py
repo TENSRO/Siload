@@ -7,6 +7,8 @@ def apply_scene_logo(root, collection, ink):
         if obj.name == 'SiLoad brand badge':
             bpy.data.objects.remove(obj, do_unlink=True)
     cx, cy = data['center_pcb_mm']
+    scale = data.get('scale', 1.0)
+    vertical = data.get('vertical', False)
     curve = bpy.data.curves.new('SiLoad badge vector geometry', 'CURVE')
     curve.dimensions = '2D'
     curve.resolution_u = 1
@@ -17,7 +19,11 @@ def apply_scene_logo(root, collection, ink):
             spline = curve.splines.new('POLY')
             spline.points.add(len(ring) - 1)
             for point, (x, y) in zip(spline.points, ring):
-                point.co = (x * 0.001, -y * 0.001, 0, 1)
+                if vertical:
+                    bx, by = y * scale, x * scale
+                else:
+                    bx, by = x * scale, -y * scale
+                point.co = (bx * 0.001, by * 0.001, 0, 1)
             spline.use_cyclic_u = True
     obj = bpy.data.objects.new('SiLoad brand badge', curve)
     collection.objects.link(obj)
