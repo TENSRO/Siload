@@ -4,10 +4,10 @@
 
 ![Top-down scale comparison — Farm Hub (59×36 mm) & Silo Unit (68×44 mm)](silo_unit/visuals/SILOAD-COMBINED-top.png)
 
-| Unit | PCB Directory | Dimensions | MCU + Radio Stack (`J1`/`J2`) | Peripherals on Carrier PCB |
+| Unit | PCB Directory | Dimensions | Production Gerbers (JLCPCB / PCBWay `.zip`) | Peripherals on Carrier PCB |
 |---|---|---|---|---|
-| **Farm Hub** (`SILOAD REV A`) | [`hardware/farm_hub/`](farm_hub/) | **59 × 36 mm** | Standard Seeed XIAO ESP32-S3 + Wio-SX1262 (LoRa EU868) | W5500 Lite SPI-Ethernet module (`J3`/`J4`) + 10 kΩ CS pull-ups (`R1`, `R2`) + decoupling (`C1`, `C2`) |
-| **Silo Unit / Load Cell PCB** (`SILOAD LOAD CELL REV A`) | [`hardware/silo_unit/`](silo_unit/) | **68 × 44 mm** | Standard Seeed XIAO ESP32-S3 + Wio-SX1262 (LoRa EU868) | 1× Horizontal Heemol HX711 (`34 × 21 mm`, `J3`/`J4`) + 1× `CD4052BE` DIP-16 4-ch differential mux (`U1`) + 4× Load Cell headers (`J5`–`J8`) + 1× DS18B20 temp header (`J9`) + 4.7 kΩ pull-up (`R1`) |
+| **Farm Hub** (`SILOAD REV A`) | [`hardware/farm_hub/`](farm_hub/) | **59 × 36 mm** | [**`SILOAD-FARM-HUB-REV-A-gerbers.zip`**](farm_hub/SILOAD-FARM-HUB-REV-A-gerbers.zip) ([`gerbers/`](farm_hub/gerbers/)) | W5500 Lite SPI-Ethernet module (`J3`/`J4`) + 10 kΩ CS pull-ups (`R1`, `R2`) + decoupling (`C1`, `C2`) |
+| **Silo Unit / Load Cell PCB** (`SILOAD LOAD CELL REV A`) | [`hardware/silo_unit/`](silo_unit/) | **68 × 44 mm** | [**`SILOAD-SILO-UNIT-REV-A-gerbers.zip`**](silo_unit/SILOAD-SILO-UNIT-REV-A-gerbers.zip) ([`gerbers/`](silo_unit/gerbers/)) | 1× Horizontal Heemol HX711 (`34 × 21 mm`, `J3`/`J4`) + 1× `CD4052BE` DIP-16 4-ch differential mux (`U1`) + 4× Load Cell headers (`J5`–`J8`) + 1× DS18B20 temp header (`J9`) + 4.7 kΩ pull-up (`R1`) |
 
 ---
 

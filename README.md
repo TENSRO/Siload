@@ -306,7 +306,9 @@ Siload uses **two compact, 100% through-hole 2-layer KiCad 10 carrier PCBs** bui
 
 | ![Farm Hub Top View](hardware/farm_hub/visuals/SILOAD%20REV%20A-top-logo.png) | ![Silo Unit Top View](hardware/silo_unit/visuals/SILOAD%20LOAD%20CELL%20REV%20A-top-logo.png) |
 
-| **Role:** LoRa-to-Ethernet gateway (XIAO ESP32-S3 + Wio-SX1262 + W5500 Lite) | **Role:** 4-leg load-cell + temperature node (XIAO ESP32-S3 + Wio-SX1262 + HX711 + CD4052BE + DS18B20) |
+| **Role:** LoRa-to-Ethernet gateway (XIAO ESP32-S3 + Wio-SX1262 + W5500 Lite) | **Role:** 4-leg load-cell + temperature node (XIAO ESP32-S3 + Wio-SX1262 + HX711 + CD4052BE + DS18B20) |
+
+| **Production Gerbers:** [SILOAD-FARM-HUB-REV-A-gerbers.zip](hardware/farm_hub/SILOAD-FARM-HUB-REV-A-gerbers.zip) ([gerbers/](hardware/farm_hub/gerbers/)) | **Production Gerbers:** [SILOAD-SILO-UNIT-REV-A-gerbers.zip](hardware/silo_unit/SILOAD-SILO-UNIT-REV-A-gerbers.zip) ([gerbers/](hardware/silo_unit/gerbers/)) |
 
 
 
