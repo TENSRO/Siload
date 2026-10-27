@@ -123,20 +123,21 @@ combined_cameras = [
     ('SILOAD-COMBINED-top.png', camera('Combined Top', (34, -28, 220), (34, -28, 0), ortho=166)),
 ]
 
+import shutil
+
 for filename, cam in combined_cameras:
     scene.camera = cam
     out_path = OUT / filename
-    tmp_path = OUT / ('_tmp_' + filename)
+    tmp_path = OUT / ('_render_' + filename)
     scene.render.filepath = str(tmp_path)
     bpy.ops.render.render(write_still=True)
-    try:
-        tmp_path.replace(out_path)
-    except Exception:
-        pass
-    repo_out = Path(r'C:\Users\leonb\Siload\hardware\silo_unit\visuals') / filename
-    if repo_out.parent.exists():
-        import shutil
-        shutil.copy2(tmp_path if tmp_path.exists() else out_path, repo_out)
+    for target in [out_path, Path(r'C:\Users\leonb\Siload\hardware\silo_unit\visuals') / filename]:
+        try:
+            if target.exists():
+                target.unlink()
+            shutil.copyfile(tmp_path, target)
+        except Exception as e:
+            print('Copy note:', target, e)
     if tmp_path.exists():
         tmp_path.unlink()
     print('COMBINED_RENDER_COMPLETE', out_path, flush=True)
