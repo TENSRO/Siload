@@ -48,7 +48,12 @@
  (property "Reference" "J" (at 0 3.81 0) (effects (font (size 1.27 1.27))))
  (property "Value" "TEMP_DS18B20" (at 0 6.35 0) (effects (font (size 1.27 1.27))))
  (symbol "J9_part_0_1" (rectangle (start -5.08 1.27) (end 15.24 -6.35) (stroke (width .254) (type default)) (fill (type background))))
- (symbol "J9_part_1_1" (pin passive line (at -10.16 0.0 0) (length 5.08) (name "VDD_3V3" (effects (font (size 1 1)))) (number "1" (effects (font (size 1 1)))))(pin passive line (at -10.16 -2.54 0) (length 5.08) (name "DQ_D7" (effects (font (size 1 1)))) (number "2" (effects (font (size 1 1)))))(pin passive line (at -10.16 -5.08 0) (length 5.08) (name "GND" (effects (font (size 1 1)))) (number "3" (effects (font (size 1 1)))))))(symbol "R1_part"
+ (symbol "J9_part_1_1" (pin passive line (at -10.16 0.0 0) (length 5.08) (name "VDD_3V3" (effects (font (size 1 1)))) (number "1" (effects (font (size 1 1)))))(pin passive line (at -10.16 -2.54 0) (length 5.08) (name "DQ_D7" (effects (font (size 1 1)))) (number "2" (effects (font (size 1 1)))))(pin passive line (at -10.16 -5.08 0) (length 5.08) (name "GND" (effects (font (size 1 1)))) (number "3" (effects (font (size 1 1)))))))(symbol "J10_part"
+ (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
+ (property "Reference" "J" (at 0 3.81 0) (effects (font (size 1.27 1.27))))
+ (property "Value" "PWR_5V_IN" (at 0 6.35 0) (effects (font (size 1.27 1.27))))
+ (symbol "J10_part_0_1" (rectangle (start -5.08 1.27) (end 15.24 -3.81) (stroke (width .254) (type default)) (fill (type background))))
+ (symbol "J10_part_1_1" (pin passive line (at -10.16 0.0 0) (length 5.08) (name "+5V_IN" (effects (font (size 1 1)))) (number "1" (effects (font (size 1 1)))))(pin passive line (at -10.16 -2.54 0) (length 5.08) (name "GND" (effects (font (size 1 1)))) (number "2" (effects (font (size 1 1)))))))(symbol "R1_part"
  (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
  (property "Reference" "R" (at 0 3.81 0) (effects (font (size 1.27 1.27))))
  (property "Value" "4.7k_1Wire_pullup" (at 0 6.35 0) (effects (font (size 1.27 1.27))))

@@ -320,7 +320,9 @@ Siload uses **two compact, 100% through-hole 2-layer KiCad 10 carrier PCBs** bui
 
 - **Continuous bridge excitation + differential switching:** All 4 load cells (J5–J8) receive continuous E+/E- excitation from the HX711 (J4.6/J4.5) for thermal stability, while a single through-hole **CD4052BE / 74HC4052N DIP-16 multiplexer (U1, ~€0.25)** switches the selected sensor\'s (A+, A-) differential pair into the HX711 (J4.3/J4.4) on D0 (DT) and D6 (SCK).
 
-- **Zero extra GPIOs required:** Channel select pins SEL_A (D8) and SEL_B (D10) reuse the SPI lines while LoRa NSS (D4) is HIGH (idle), and the DS18B20 temperature sensor sits on D7 with a 4.7 kΩ pull-up (R1).
+- **Zero extra GPIOs required:** Channel select pins SEL_A (D8) and SEL_B (D10) reuse the SPI lines while LoRa NSS (D4) is HIGH (idle), and the DS18B20 temperature sensor sits on D7 with a 4.7 kΩ pull-up (R1).
+
+- **Dual power options (USB-C or 5V DC header):** Both carrier boards feature dedicated 2-pin 2.54mm power headers (J5 on Farm Hub, J10 on Silo Unit) labeled 5V/GND, allowing direct 5V DC power from a DIN-rail supply, solar power board, or battery regulator without requiring a USB-C cable.
 
 
 

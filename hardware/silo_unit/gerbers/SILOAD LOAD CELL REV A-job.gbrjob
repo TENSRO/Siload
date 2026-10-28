@@ -5,7 +5,7 @@
       "Application": "Pcbnew",
       "Version": "10.0.6"
     },
-    "CreationDate": "2026-10-28T00:54:23+01:00"
+    "CreationDate": "2026-10-28T01:11:09+01:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -42,6 +42,16 @@
       "FilePolarity": "Positive"
     },
     {
+      "Path": "SILOAD LOAD CELL REV A-F_Adhesive.gta",
+      "FileFunction": "Glue,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "SILOAD LOAD CELL REV A-B_Adhesive.gba",
+      "FileFunction": "Glue,Bot",
+      "FilePolarity": "Positive"
+    },
+    {
       "Path": "SILOAD LOAD CELL REV A-F_Paste.gtp",
       "FileFunction": "SolderPaste,Top",
       "FilePolarity": "Positive"
@@ -72,8 +82,58 @@
       "FilePolarity": "Negative"
     },
     {
+      "Path": "SILOAD LOAD CELL REV A-User_Drawings.gbr",
+      "FileFunction": "Other,User",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "SILOAD LOAD CELL REV A-User_Comments.gbr",
+      "FileFunction": "Other,User",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "SILOAD LOAD CELL REV A-User_Eco1.gbr",
+      "FileFunction": "Other,User",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "SILOAD LOAD CELL REV A-User_Eco2.gbr",
+      "FileFunction": "Other,User",
+      "FilePolarity": "Positive"
+    },
+    {
       "Path": "SILOAD LOAD CELL REV A-Edge_Cuts.gm1",
       "FileFunction": "Profile",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "SILOAD LOAD CELL REV A-F_Fab.gbr",
+      "FileFunction": "AssemblyDrawing,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "SILOAD LOAD CELL REV A-B_Fab.gbr",
+      "FileFunction": "AssemblyDrawing,Bot",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "SILOAD LOAD CELL REV A-User_1.gbr",
+      "FileFunction": "Other,User",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "SILOAD LOAD CELL REV A-User_2.gbr",
+      "FileFunction": "Other,User",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "SILOAD LOAD CELL REV A-User_3.gbr",
+      "FileFunction": "Other,User",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "SILOAD LOAD CELL REV A-User_4.gbr",
+      "FileFunction": "Other,User",
       "FilePolarity": "Positive"
     }
   ],

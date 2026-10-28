@@ -6,8 +6,8 @@
 
 | Unit | PCB Directory | Dimensions | Production Gerbers (JLCPCB / PCBWay `.zip`) | Peripherals on Carrier PCB |
 |---|---|---|---|---|
-| **Farm Hub** (`SILOAD REV A`) | [`hardware/farm_hub/`](farm_hub/) | **59 × 36 mm** | [**`SILOAD-FARM-HUB-REV-A-gerbers.zip`**](farm_hub/SILOAD-FARM-HUB-REV-A-gerbers.zip) ([`gerbers/`](farm_hub/gerbers/)) | W5500 Lite SPI-Ethernet module (`J3`/`J4`) + 10 kΩ CS pull-ups (`R1`, `R2`) + decoupling (`C1`, `C2`) |
-| **Silo Unit / Load Cell PCB** (`SILOAD LOAD CELL REV A`) | [`hardware/silo_unit/`](silo_unit/) | **68 × 44 mm** | [**`SILOAD-SILO-UNIT-REV-A-gerbers.zip`**](silo_unit/SILOAD-SILO-UNIT-REV-A-gerbers.zip) ([`gerbers/`](silo_unit/gerbers/)) | 1× Horizontal Heemol HX711 (`34 × 21 mm`, `J3`/`J4`) + 1× `CD4052BE` DIP-16 4-ch differential mux (`U1`) + 4× Load Cell headers (`J5`–`J8`) + 1× DS18B20 temp header (`J9`) + 4.7 kΩ pull-up (`R1`) |
+| **Farm Hub** (`SILOAD REV A`) | [`hardware/farm_hub/`](farm_hub/) | **59 × 36 mm** | [**`SILOAD-FARM-HUB-REV-A-gerbers.zip`**](farm_hub/SILOAD-FARM-HUB-REV-A-gerbers.zip) ([`gerbers/`](farm_hub/gerbers/)) | W5500 Lite SPI-Ethernet (`J3`/`J4`) + 2-pin 5V power header (`J5`) + decoupling (`C1`, `C2`) |
+| **Silo Unit / Load Cell PCB** (`SILOAD LOAD CELL REV A`) | [`hardware/silo_unit/`](silo_unit/) | **68 × 44 mm** | [**`SILOAD-SILO-UNIT-REV-A-gerbers.zip`**](silo_unit/SILOAD-SILO-UNIT-REV-A-gerbers.zip) ([`gerbers/`](silo_unit/gerbers/)) | 1× Horizontal Heemol HX711 (`34 × 21 mm`, `J3`/`J4`) + 1× `CD4052BE` DIP-16 4-ch differential mux (`U1`) + 4× Load Cell headers (`J5`–`J8`) + 1× DS18B20 temp header (`J9`) + 2-pin 5V power header (`J10`) + 4.7 kΩ pull-up (`R1`) |
 
 ---
 
@@ -50,8 +50,8 @@ During hardware design we revised the **Silo Unit (`SILOAD LOAD CELL REV A`)** a
 | **D4** (`J1.5`) | `GPIO5` | *(NC on PCB)* | **LoRa `NSS` (CS)** (internal to stacked Wio-SX1262; keep HIGH during sensor reads) |
 | **D5** (`J1.6`) | `GPIO6` | *(NC on PCB)* | **LoRa `RF_SW`** (internal to stacked Wio-SX1262) |
 | **D6** (`J1.7`) | `GPIO43` | `HX_SCK` | **HX711 Serial Clock (`SCK`)** → `J3.2` |
-| **5V** (`J2.1`) | — | *(NC on PCB)* | USB-C 5 V rail on XIAO |
-| **GND** (`J2.2`) | — | `GND` | Digital & analog ground → `J3.4`, `U1.6` (`INH`), `U1.7` (`VEE`), `U1.8` (`VSS`), `J9.3`, `C1.2`, `C2.2` |
+| **5V** (`J2.1`) | — | `+5V` | 5 V power rail on XIAO → connected to 2-pin external power input header `J10.1` |
+| **GND** (`J2.2`) | — | `GND` | Digital & analog ground → `J3.4`, `U1.6` (`INH`), `U1.7` (`VEE`), `U1.8` (`VSS`), `J9.3`, `J10.2`, `C1.2`, `C2.2` |
 | **3V3** (`J2.3`) | — | `+3V3` | Regulated 3.3 V supply → `J3.1` (`VCC`), `U1.16` (`VDD`), `J9.1` (`VDD`), `R1.1`, `C1.1`, `C2.1` |
 | **D10** (`J2.4`) | `GPIO9` | `MUX_B` | **CD4052 Select B (`SEL_B`, bit 1)** → `U1.9` (shared with LoRa MOSI when `D4` is LOW) |
 | **D9** (`J2.5`) | `GPIO8` | *(NC on PCB)* | **LoRa `SPI MISO`** (internal to stacked Wio-SX1262) |
@@ -90,6 +90,11 @@ Each 4-pin sensor header (`J5` = `SENS1`, `J6` = `SENS2`, `J7` = `SENS3`, `J8` =
 | **Sensor 3 (`J7` / `S3`)** | `HIGH (1)` | `LOW (0)` | Channel `2` (`X2`, `Y2`) | `J7.4` (`LC3_AP`) → `U1.15` | `J7.3` (`LC3_AN`) → `U1.2` |
 | **Sensor 4 (`J8` / `S4`)** | `HIGH (1)` | `HIGH (1)` | Channel `3` (`X3`, `Y3`) | `J8.4` (`LC4_AP`) → `U1.11` | `J8.3` (`LC4_AN`) → `U1.4` |
 
+### External 5V Power Header (`J10` — 2-pin 2.54mm Socket)
+Allows powering the entire Silo Unit (XIAO ESP32-S3, stacked Wio-SX1262 LoRa, HX711, CD4052BE, DS18B20) from an external 5V DC power supply without requiring a USB-C cable:
+- **Pin 1:** `+5V` (connects to XIAO `5V_USB` / `VBUS` at `J2.1`, feeding the onboard 3.3V LDO regulator)
+- **Pin 2:** `GND` (system ground)
+
 ---
 
 ## 2. Farm Hub (`SILOAD REV A` — `59 × 36 mm`)
@@ -111,4 +116,10 @@ The **Farm Hub (`SILOAD REV A`)** receives LoRa telemetry packets from the Silo 
 | **D9** (`J2.5`) | `GPIO8` | `SPI_MISO` | Shared SPI MISO → LoRa + `J3.4` (`W5500 MISO`) |
 | **D10** (`J2.4`) | `GPIO9` | `SPI_MOSI` | Shared SPI MOSI → LoRa + `J3.3` (`W5500 MOSI`) |
 | **3V3** (`J2.3`) | — | `+3V3` | `J3.1` (`W5500 3V3`), `R1.1`, `R2.1`, `C1.1` (`100 nF`), `C2.1` (`10 µF`) |
-| **GND** (`J2.2`) | — | `GND` | `J3.6`, `J4.4`, `C1.2`, `C2.2` |
+| **GND** (`J2.2`) | — | `GND` | `J3.6`, `J4.4`, `J5.2`, `C1.2`, `C2.2` |
+| **5V** (`J2.1`) | — | `+5V` | Connects to 2-pin external power input header `J5.1` (`+5V_IN`) |
+
+### External 5V Power Header (`J5` — 2-pin 2.54mm Socket)
+Allows powering the entire Farm Hub (XIAO ESP32-S3, stacked Wio-SX1262 LoRa, W5500 Lite) from an external 5V DC supply without requiring a USB-C cable:
+- **Pin 1:** `+5V` (connects to XIAO `5V_USB` / `VBUS` at `J2.1`)
+- **Pin 2:** `GND` (system ground)

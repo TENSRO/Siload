@@ -1,6 +1,7 @@
 Reference,Quantity,Description,Footprint
 "J1,J2",2,Female header 1x7 2.54mm; height must clear Wio stack,PinSocket_1x07_P2.54mm_Vertical
 "J3,J4",2,Female header 1x6 2.54mm; ARCELI spacing provisional,PinSocket_1x06_P2.54mm_Vertical
+J5,1,"2-pin 2.54mm power header/pads (+5V, GND) for external 5V supply",PinSocket_1x02_P2.54mm_Vertical
 C1,1,100nF 50V ceramic through-hole,Disc D5.0mm P2.50mm
 C2,1,10uF 16V radial electrolytic; pin 1 is positive,Radial D5.0mm P2.00mm
 Mounting hardware,4,"M2.5 screws, head diameter <=5mm; spacers to match enclosure",2.7mm mounting holes
