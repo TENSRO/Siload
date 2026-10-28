@@ -1,0 +1,47 @@
+{
+  "board_mm": [
+    68,
+    44
+  ],
+  "connector_front_Y_mm": {
+    "USB-C": 2.5
+  },
+  "panel_datum_Y_mm": 2.5,
+  "mounting_holes": [
+    [
+      "H1",
+      53.5,
+      53.5
+    ],
+    [
+      "H2",
+      114.5,
+      53.5
+    ],
+    [
+      "H3",
+      53.5,
+      90.5
+    ],
+    [
+      "H4",
+      114.5,
+      90.5
+    ]
+  ],
+  "screw_head_diameter_mm": 5.0,
+  "min_component_body_clearance_mm": 2.12,
+  "min_screw_head_to_body_clearance_mm": 0.82,
+  "screw_head_to_track_clearance_mm": {
+    "H1": 2.205,
+    "H2": 8.133,
+    "H3": 3.044,
+    "H4": 5.331
+  },
+  "track_segments": {
+    "horizontal": 84,
+    "vertical": 36,
+    "diagonal45": 114
+  },
+  "status": "PASS: compact 68x44mm layout for Heemol 34x21mm HX711 meets >=2.0mm body clearance and 45-deg routing rules."
+}
